@@ -3,7 +3,7 @@
    Выполнила: Васильева Д.М.
 '''
 from typing import Optional
-from sqlmodel import Field, Session, SQLModel, create_engine
+from sqlmodel import *
 from datetime import date
 from datetime import time
 from random import *
@@ -66,8 +66,8 @@ class Tourists(SQLModel, table=True):
     CodeExcursion: Optional[int] = Field(default=None, foreign_key="excursions.CodeExcursion")
 # Функция заполнения таблицы Должности
 def CreatePost():
-    post1 = ListPost(Name = "keeper")
-    post2 = ListPost(Name = "guide")
+    post1 = ListPost(Name = "смотритель")
+    post2 = ListPost(Name = "экскурсовод")
     with Session(engine) as session:
         session.add(post1)
         session.add(post2)
@@ -105,31 +105,31 @@ def CreateHall():
 # Функция заполнения таблицы Экспонаты
 def CreateExhibits():
     exh1  = Exhibits(Name = "Статуя Аменемхета III", CodeHall = 1, Author = "NULL", Year = "NULL",
-                     Look = "bad", Category = "sculpture", DateInspection = date(2023,10,13), CodeRestorer = "NULL")
+                     Look = "неуд.", Category = "скульптура", DateInspection = date(2023,10,13), CodeRestorer = "NULL")
     exh2  = Exhibits(Name = "Стела Хоремхеба", CodeHall = 1, Author = "NULL", Year = "NULL",
-                     Look = "good", Category = "sculpture", DateInspection = date(2023,8,8), CodeRestorer = "NULL")
+                     Look = "уд.", Category = "скульптура", DateInspection = date(2023,8,8), CodeRestorer = "NULL")
     exh3  = Exhibits(Name = "Статуэтка-амулет Исиды", CodeHall = 1, Author = "NULL", Year = "NULL",
-                     Look = "good", Category = "sculpture", DateInspection = date(2023,7,7), CodeRestorer = "NULL")
+                     Look = "уд.", Category = "скульптура", DateInspection = date(2023,7,7), CodeRestorer = "NULL")
     exh4  = Exhibits(Name = "Разорители гнезд", CodeHall = 2, Author = "Гюбер Робер", Year = "1934",
-                     Look = "bad", Category = "painting", DateInspection = date(2023,2,12), CodeRestorer = "NULL")
+                     Look = "неуд.", Category = "живопись", DateInspection = date(2023,2,12), CodeRestorer = "NULL")
     exh5  = Exhibits(Name = "Обелиск", CodeHall = 2, Author = "Гюбер Робер", Year = "1932",
-                     Look = "good", Category = "painting", DateInspection = date(2023,8,22), CodeRestorer = "NULL")
+                     Look = "уд.", Category = "живопись", DateInspection = date(2023,8,22), CodeRestorer = "NULL")
     exh6  = Exhibits(Name = "Деревья", CodeHall = 2, Author = "Гюбер Робер", Year = "1932",
-                     Look = "good", Category = "painting", DateInspection = date(2023,8,23), CodeRestorer = "NULL")
+                     Look = "уд.", Category = "живопись", DateInspection = date(2023,8,23), CodeRestorer = "NULL")
     exh7  = Exhibits(Name = "Водопад", CodeHall = 2, Author = "Гюбер Робер", Year = "1919",
-                     Look = "bad", Category = "painting", DateInspection = date(2023,4,10), CodeRestorer = "NULL")
+                     Look = "неуд.", Category = "живопись", DateInspection = date(2023,4,10), CodeRestorer = "NULL")
     exh8  = Exhibits(Name = "Портрет Александра I", CodeHall = 3, Author = "Франц Крюгер", Year = "NULL",
-                     Look = "good", Category = "painting", DateInspection = date(2023,4,20), CodeRestorer = "NULL")
+                     Look = "уд.", Category = "живопись", DateInspection = date(2023,4,20), CodeRestorer = "NULL")
     exh9  = Exhibits(Name = "Портрет Франца I", CodeHall = 3, Author = "Иоганн Петер Краф", Year = "NULL",
-                     Look = "good", Category = "painting", DateInspection = date(2022,6,11), CodeRestorer = "NULL")
+                     Look = "уд.", Category = "живопись", DateInspection = date(2022,6,11), CodeRestorer = "NULL")
     exh10 = Exhibits(Name = "Портрет Ф. Вильгельма III", CodeHall = 3, Author = "Франц Крюгер", Year = "NULL",
-                     Look = "good", Category = "painting", DateInspection = date(2022,12,12), CodeRestorer = "NULL")
+                     Look = "уд.", Category = "живопись", DateInspection = date(2022,12,12), CodeRestorer = "NULL")
     exh11 = Exhibits(Name = "Петр I с Минервой", CodeHall = 4, Author = "Амигони Якопо", Year = "NULL",
-                     Look = "bad", Category = "painting", DateInspection = date(2023,1,12), CodeRestorer = "NULL")
+                     Look = "неуд.", Category = "живопись", DateInspection = date(2023,1,12), CodeRestorer = "NULL")
     exh12 = Exhibits(Name = "Церера", CodeHall = 5, Author = "Альберт Торвальдсен", Year = "1920",
-                     Look = "good", Category = "sculpture", DateInspection = date(2023,3,13), CodeRestorer = "NULL")
+                     Look = "уд.", Category = "скульптура", DateInspection = date(2023,3,13), CodeRestorer = "NULL")
     exh13 = Exhibits(Name = "Вид части Гербового зала", CodeHall = 5, Author = "Адольф Игнатьевич Ладюрнер", Year = "1956",
-                     Look = "good", Category = "painting", DateInspection = date(2023,9,16), CodeRestorer = "NULL")
+                     Look = "уд.", Category = "живопись", DateInspection = date(2023,9,16), CodeRestorer = "NULL")
     exhs = [exh1, exh2,  exh3,  exh4,  exh5,  exh6, exh7,
              exh8, exh9, exh10, exh11, exh12, exh13]
     with Session(engine) as session:
@@ -164,37 +164,37 @@ def CreateRestorer():
 def CreateExcursion():
     # Расписание экскурсий на понедельник
     ex1  = Excursions(Name = "Большое путешествие по Эрмитажу", Begin = time(11,30), End = time(13,30),
-                      DayWeek = "mon", Cost = 5900, CodeStaff = 6, Quantity = 20)
+                      DayWeek = "пн", Cost = 5900, CodeStaff = 6, Quantity = 20)
     ex2  = Excursions(Name = "С умом по Эрмитажу", Begin = time(12,30), End = time(14,30),
-                      DayWeek = "mon", Cost = 5330, CodeStaff = 7, Quantity = 15)
+                      DayWeek = "пн", Cost = 5330, CodeStaff = 7, Quantity = 15)
     ex3  = Excursions(Name = "Эрмитаж. Знакомство", Begin = time(13,0), End = time(15,0),
-                      DayWeek = "mon", Cost = 2964, CodeStaff = 8, Quantity = 15)
+                      DayWeek = "пн", Cost = 2964, CodeStaff = 8, Quantity = 15)
     ex4  = Excursions(Name = "Экскурсия в мир искусства", Begin = time(13,30), End = time(15,30),
-                      DayWeek = "mon", Cost = 3600, CodeStaff = 9, Quantity = 15)
+                      DayWeek = "пн", Cost = 3600, CodeStaff = 9, Quantity = 15)
     ex5  = Excursions(Name = "Большое путешествие по Эрмитажу", Begin = time(14,0), End = time(16,0),
-                      DayWeek = "mon", Cost = 3600, CodeStaff = 10, Quantity = 15)
+                      DayWeek = "пн", Cost = 3600, CodeStaff = 10, Quantity = 15)
     # Расписание экскурсий на вторник
     ex6  = Excursions(Name = "Экскурсия в мир искусства", Begin = time(11,30), End = time(13,30),
-                      DayWeek = "tue", Cost = 3600, CodeStaff = 6, Quantity = 20)
+                      DayWeek = "вт", Cost = 3600, CodeStaff = 6, Quantity = 20)
     ex7  = Excursions(Name = "Эрмитаж не для галочки", Begin = time(12,0), End = time(14,0),
-                      DayWeek = "tue", Cost = 3900, CodeStaff = 7, Quantity = 15)
+                      DayWeek = "вт", Cost = 3900, CodeStaff = 7, Quantity = 15)
     ex8  = Excursions(Name = "Тайны шедевров Эрмитажа", Begin = time(12,30), End = time(14,30),
-                      DayWeek = "tue", Cost = 5300, CodeStaff = 8, Quantity = 15)
+                      DayWeek = "вт", Cost = 5300, CodeStaff = 8, Quantity = 15)
     ex9  = Excursions(Name = "Залы Эрмитажа", Begin = time(13,0), End = time(15,0),
-                      DayWeek = "tue", Cost = 2500, CodeStaff = 9, Quantity = 15)
+                      DayWeek = "вт", Cost = 2500, CodeStaff = 9, Quantity = 15)
     ex10 = Excursions(Name = "Эрмитаж и тайны семьи Романовых", Begin = time(13,30), End = time(15,30),
-                      DayWeek = "tue", Cost = 5250, CodeStaff = 10, Quantity = 15)
+                      DayWeek = "вт", Cost = 5250, CodeStaff = 10, Quantity = 15)
     # Расписание экскурсий на среду
     ex11 = Excursions(Name = "Эрмитаж. Знакомство", Begin = time(11,30), End = time(13,30),
-                      DayWeek = "wed", Cost = 2964, CodeStaff = 6, Quantity = 20)
+                      DayWeek = "ср", Cost = 2964, CodeStaff = 6, Quantity = 20)
     ex12 = Excursions(Name = "Эрмитаж и тайны семьи Романовых", Begin = time(12,0), End = time(14,0),
-                      DayWeek = "wed", Cost = 5250, CodeStaff = 7, Quantity = 15)
+                      DayWeek = "ср", Cost = 5250, CodeStaff = 7, Quantity = 15)
     ex13 = Excursions(Name = "Тайны шедевров Эрмитажа", Begin = time(12,30), End = time(14,30),
-                      DayWeek = "wed", Cost = 5300, CodeStaff = 8, Quantity = 15)
+                      DayWeek = "ср", Cost = 5300, CodeStaff = 8, Quantity = 15)
     ex14 = Excursions(Name = "Большое путешествие по Эрмитажу", Begin = time(13,0), End = time(15,0),
-                      DayWeek = "wed", Cost = 5900, CodeStaff = 9, Quantity = 15)
+                      DayWeek = "ср", Cost = 5900, CodeStaff = 9, Quantity = 15)
     ex15 = Excursions(Name = "Эрмитаж и тайны семьи Романовых", Begin = time(13,30), End = time(15,30),
-                      DayWeek = "wed", Cost = 5250, CodeStaff = 10, Quantity = 15)
+                      DayWeek = "ср", Cost = 5250, CodeStaff = 10, Quantity = 15)
     rests = [ex1,  ex2,  ex3,  ex4,  ex5,  ex6,  ex7, ex8,
              ex9, ex10, ex11, ex12, ex13, ex14, ex15]
     with Session(engine) as session:
@@ -220,9 +220,9 @@ def CreateTourist():
         for tour in tours:
             session.add(tour)
         session.commit()
+engine = create_engine("sqlite:///database.db")
 # Создание БД
 if __name__ == "__main__":
-    engine = create_engine("sqlite:///database.db")
     SQLModel.metadata.create_all(engine)
     CreatePost();      CreateStaff();    
     CreateHall();      CreateExhibits(); 
